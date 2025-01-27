@@ -155,6 +155,6 @@ def configure_model(model_id,
     else:
         raise ValueError(
             f"Invalid model_id: {model_id}. Expected one of: "
-            "['unet', 'residual_unet', 'recurrent_unet', 'attention_unet', "
-            " 'recurrent_residual_attention_unet_1', 'attention_recurrent_residual_unet_2']."
+             "['unet', 'recurrent_unet', 'residual_unet', 'attention_unet', "
+             " 'recurrent_residual_attention_unet_1', 'attention_recurrent_residual_unet_2']."
         )
