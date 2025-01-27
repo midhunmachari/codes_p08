@@ -31,7 +31,7 @@ fi
 
 ####################### EDIT BELOW #######################
 
-SCRIPTNAME='runexp_p.py'
+SCRIPTNAME='main.py'
 # Assign arguments with default values
 PREFIX="${1:-p05a}"   # Default: p05
 EPOCHS="${2:-101}"   # Default: 101
