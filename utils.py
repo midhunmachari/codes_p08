@@ -71,8 +71,38 @@ def configure_model(model_id,
             convblock_opt='conv',
             attention_on=False,
             layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
             )
+    
+    elif model_id == 'recurrent_unet': # Recurrent-U-Net
+        return MegaUNet(
+            input_shape = input_shape, 
+            input_shape_hr = input_shape_hr, 
+            add_input_noise = add_input_noise,
+            input_noise_stddev = input_noise_stddev,
+            activation = activation, 
+            batchnorm_on = batchnorm_on, 
+            ups_method = ups_method,
+            #######################################
+            convblock_opt='recurrent_conv',
+            attention_on=False,
+            layer_N=[64, 96, 128, 160],
+            reccur_iter=3,
+            ) 
+
+    elif model_id == 'residual_unet': # Residual-U-Net 
+        return MegaUNet(
+            input_shape = input_shape, 
+            input_shape_hr = input_shape_hr, 
+            add_input_noise = add_input_noise,
+            input_noise_stddev = input_noise_stddev,
+            activation = activation, 
+            batchnorm_on = batchnorm_on, 
+            ups_method = ups_method,
+            #######################################
+            convblock_opt='residual_conv',
+            attention_on=False,
+            layer_N=[64, 96, 128, 160],
+            ) 
     
     elif model_id == 'attention_unet': # Attention-U-Net 
         return MegaUNet(
@@ -89,88 +119,8 @@ def configure_model(model_id,
             layer_N=[64, 96, 128, 160],
             reccur_iter=3,
             ) 
-
-    elif model_id == 'recurrent_unet': # Recurrent-U-Net
-        return MegaUNet(
-            input_shape = input_shape, 
-            input_shape_hr = input_shape_hr, 
-            add_input_noise = add_input_noise,
-            input_noise_stddev = input_noise_stddev,
-            activation = activation, 
-            batchnorm_on = batchnorm_on, 
-            ups_method = ups_method,
-            #######################################
-            convblock_opt='recurrent_conv',
-            attention_on=False,
-            layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
-            ) 
     
-    elif model_id == 'attention_recurrent_unet': # Attention-Recurrent-U-Net
-        return MegaUNet(
-            input_shape = input_shape, 
-            input_shape_hr = input_shape_hr, 
-            add_input_noise = add_input_noise,
-            input_noise_stddev = input_noise_stddev,
-            activation = activation, 
-            batchnorm_on = batchnorm_on, 
-            ups_method = ups_method,
-            #######################################
-            convblock_opt='recurrent_conv',
-            attention_on=True,
-            layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
-            ) 
-    
-    elif model_id == 'residual_unet': # Residual-U-Net 
-        return MegaUNet(
-            input_shape = input_shape, 
-            input_shape_hr = input_shape_hr, 
-            add_input_noise = add_input_noise,
-            input_noise_stddev = input_noise_stddev,
-            activation = activation, 
-            batchnorm_on = batchnorm_on, 
-            ups_method = ups_method,
-            #######################################
-            convblock_opt='residual_conv',
-            attention_on=False,
-            layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
-            ) 
-    
-    elif model_id == 'attention_residual_unet': # Attention-Residual-U-Net
-        return MegaUNet(
-            input_shape = input_shape, 
-            input_shape_hr = input_shape_hr, 
-            add_input_noise = add_input_noise,
-            input_noise_stddev = input_noise_stddev,
-            activation = activation, 
-            batchnorm_on = batchnorm_on, 
-            ups_method = ups_method,
-            #######################################
-            convblock_opt='residual_conv',
-            attention_on=True,
-            layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
-            ) 
-    
-    elif model_id == 'recurrent_residual_unet': # Sigmoid Discriminator
-        return MegaUNet(
-            input_shape = input_shape, 
-            input_shape_hr = input_shape_hr, 
-            add_input_noise = add_input_noise,
-            input_noise_stddev = input_noise_stddev,
-            activation = activation, 
-            batchnorm_on = batchnorm_on, 
-            ups_method = ups_method,
-            #######################################
-            convblock_opt='recurrent_residual_conv',
-            attention_on=False,
-            layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
-            )
-    
-    elif model_id == 'recurrent_residual_attention_unet': # Sigmoid Discriminator
+    elif model_id == 'recurrent_residual_attention_unet_1': # Sigmoid Discriminator
         return MegaUNet(
             inputs_shape = input_shape, 
             input_shape_hr = input_shape_hr, 
@@ -183,22 +133,6 @@ def configure_model(model_id,
             convblock_opt='recurrent_residual_conv',
             attention_on=True,
             layer_N=[64, 96, 128, 160],
-            reccur_iter=3,
-            ) 
-    
-    elif model_id == 'recurrent_residual_unet_2': # Sigmoid Discriminator
-        return MegaUNet(
-            input_shape = input_shape, 
-            input_shape_hr = input_shape_hr, 
-            add_input_noise = add_input_noise,
-            input_noise_stddev = input_noise_stddev,
-            activation = activation, 
-            batchnorm_on = batchnorm_on, 
-            ups_method = ups_method,
-            #######################################
-            convblock_opt='recurrent_residual_conv',
-            attention_on=False,
-            layer_N=[32, 64, 96, 128],
             reccur_iter=3,
             ) 
     
@@ -221,8 +155,6 @@ def configure_model(model_id,
     else:
         raise ValueError(
             f"Invalid model_id: {model_id}. Expected one of: "
-            "['unet', 'attention_unet', 'recurrent_unet', 'attention_recurrent_unet', "
-            "'residual_unet', 'attention_residual_unet', 'recurrent_residual_unet', "
-            "'attention_recurrent_residual_unet', 'recurrent_residual_unet_2', "
-            "'attention_recurrent_residual_unet_2']."
+            "['unet', 'residual_unet', 'recurrent_unet', 'attention_unet', "
+            " 'recurrent_residual_attention_unet_1', 'attention_recurrent_residual_unet_2']."
         )
