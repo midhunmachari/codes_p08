@@ -15,15 +15,10 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, los
 
     model_dict = {
     'u01': 'unet',
-    'u02': 'aunet',
-    'u03': 'rcunet',
-    'u04': 'arcunet', 
-    'u05': 'rsunet',
-    'u06': 'arsunet',
-    'u07': 'r2unet',
-    'u08': 'ar2unet',
-    'u09': 'r2unet2',
-    'u10': 'ar2unet2',
+    'u02': 'recurrent_unet',
+    'u03': 'residual_unet',
+    'u04': 'attention_unet', 
+    'u05': '',
     }
 
     DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
