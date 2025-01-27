@@ -10,7 +10,7 @@
 
 # Display help message if "--help" is passed
 if [[ "$1" == "--help" ]]; then
-    echo "Usage: $(basename "$0") [PREFIX] [RUN_ID] [EPOCHS]"
+    echo "Usage: $(basename "$0") [PREFIX] [EPOCHS]"
     echo ""
     echo "Arguments:"
     echo "  PREFIX    Optional. Prefix for the run. Default: p05"
