@@ -167,8 +167,9 @@ def configure_model(model_id,
     
     
     else:
-        raise ValueError(f"Invalid model_id: {model_id}. Expected one of \
-                            ['unet', 'aunet', 'rcunet', 'arcunet', 'rsunet', 'arsunet', 'rcunet', 'arcunet',
-                                                                                        ].")
-    
+        raise ValueError(
+            f"Invalid model_id: {model_id}. Expected one of: "
+            "['unet', 'aunet', 'rcunet', 'arcunet', 'rsunet', 'arsunet']."
+        )
+
          
