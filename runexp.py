@@ -10,16 +10,14 @@ from ai4klima.tensorflow.utils import load_inputs_target_pairs, take_paired_data
 
 from utils import configure_model
 
-##################################################################################################
-def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, losses_dict, lr_dict, bs_dict):
+######### EDIT BELOW #########
+activation = 'prelu'
+ups_method = 'convtranspose'
+add_input_noise = False
+input_noise_stddev = 0.1
+######### EDIT ABOVE #########
 
-    model_dict = {
-    'u01': 'unet',
-    'u02': 'recurrent_unet',
-    'u03': 'residual_unet',
-    'u04': 'attention_unet', 
-    'u05': '',
-    }
+def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
 
     DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
 
@@ -31,16 +29,27 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, los
     inputs_dict = {
         'i01p': {
             'prec' : f'{DATA_PATH}/IND32M_ERA5_100_PREC_DAY_1979_2023_RCON_LOG.npy',
+
             'z850' : f'{DATA_PATH}/IND32M_ERA5_100_Z850_DAY_1979_2023_RBIL_STD.npy',
+            'z700' : f'{DATA_PATH}/IND32M_ERA5_100_Z700_DAY_1979_2023_RBIL_STD.npy',
             'z500' : f'{DATA_PATH}/IND32M_ERA5_100_Z500_DAY_1979_2023_RBIL_STD.npy',
+
             'q850' : f'{DATA_PATH}/IND32M_ERA5_100_Q850_DAY_1979_2023_RBIL_STD.npy',
+            'q700' : f'{DATA_PATH}/IND32M_ERA5_100_Q700_DAY_1979_2023_RBIL_STD.npy',
             'q500' : f'{DATA_PATH}/IND32M_ERA5_100_Q500_DAY_1979_2023_RBIL_STD.npy',
+
             't850' : f'{DATA_PATH}/IND32M_ERA5_100_T850_DAY_1979_2023_RBIL_STD.npy',
-            't500' : f'{DATA_PATH}/IND32M_ERA5_100_T500_DAY_1979_2023_RBIL_STD.npy',  
+            't700' : f'{DATA_PATH}/IND32M_ERA5_100_T700_DAY_1979_2023_RBIL_STD.npy',
+            't500' : f'{DATA_PATH}/IND32M_ERA5_100_T500_DAY_1979_2023_RBIL_STD.npy',
+
             'u850' : f'{DATA_PATH}/IND32M_ERA5_100_U850_DAY_1979_2023_RBIL_STD.npy',
+            'u700' : f'{DATA_PATH}/IND32M_ERA5_100_U700_DAY_1979_2023_RBIL_STD.npy',
             'u500' : f'{DATA_PATH}/IND32M_ERA5_100_U500_DAY_1979_2023_RBIL_STD.npy',
+
             'v850' : f'{DATA_PATH}/IND32M_ERA5_100_V850_DAY_1979_2023_RBIL_STD.npy',
+            'v700' : f'{DATA_PATH}/IND32M_ERA5_100_V700_DAY_1979_2023_RBIL_STD.npy',
             'v500' : f'{DATA_PATH}/IND32M_ERA5_100_V500_DAY_1979_2023_RBIL_STD.npy',
+
             'msl'  : f'{DATA_PATH}/IND32M_ERA5_100_MSL_DAY_1979_2023_RBIL_STD.npy',
             't2m'  : f'{DATA_PATH}/IND32M_ERA5_100_T2M_DAY_1979_2023_RBIL_STD.npy',
             } 
@@ -65,7 +74,7 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, los
     for (bs_id, bs), (lr_id, gen_lr), (loss_id, loss_fn), (i_id, inputs_channels), (t_id, target_channels), (s_id, static_channels) in itertools.product(
         bs_dict.items(), lr_dict.items(), losses_dict.items(), inputs_dict.items(), target_dict.items(), static_dict.items()):
         
-        model_name = model_dict[model_id]
+        model_name = models_dict[model_id]
 
         print('\nRunning in Exp. loop next ...')
         print('#'*100)
@@ -100,21 +109,21 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, los
             Train UNET variants -> Deterministic Modelling
             """
             gen_arch = configure_model(
-                model_id = model_name, 
-                inputs_shape = X_train.shape[1:], 
-                input_shape_hr = S_train.shape[1:], 
-                add_input_noise=False,
-                input_noise_stddev=0.1,
-                activation='prelu', 
-                batchnorm_on=True, 
-                ups_method='bilinear'
-                ) # Edit here
+                model_id, 
+                input_shape = X_train.shape[1:],
+                target_shape = y_train.shape[1:],
+                input_shape_hr = S_train.shape[1:],
+                activation = activation,
+                ups_method = ups_method,
+                add_input_noise = add_input_noise,
+                input_noise_stddev = input_noise_stddev,
+                )
 
             mt = ModelTraining(
                 prefix = exp_prefix, 
                 save_path = SAVE_PATH,
                 generator = gen_arch,
-                loss_fn = loss_fn, # Edit here
+                loss_fn = loss_fn,
                 lr_init = gen_lr,
                 log_tensorboard = True,
                 enable_function = True,
@@ -162,9 +171,9 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, los
 
             mt.plot_training_curves()
         
-            X_test, _ = take_paired_data_subset_by_bounds(X, y, bounds=(11323, None)) # 2010 JAN 01 : 2023 DEC 31 -> Edit here
+            X_test, _, S_test = take_paired_data_subset_by_bounds(X, y, bounds=(11323, None)) # 2010 JAN 01 : 2023 DEC 31 -> Edit here
             mt.generate_data_and_builf_netcdf(
-                X_test, 
+                [X_test, S_test],
                 model_path = None,
                 refd_path=REFD_PATH, 
                 batch_size = 32, 

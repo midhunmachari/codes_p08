@@ -35,6 +35,18 @@ else:
 
 ########################################## EXECUTION SNIPPET BELOW #########################################
 
+models_dict = {
+    'u01_cnn1': 'unet',
+    'u02_att1': 'unet-att',
+    'u03_rec1': 'unet-rec',
+    'u04_res1': 'unet-res', 
+    'u05_r2a1': 'unet-r2a',
+    }
+
+losses_dict = {
+    'wmae': weighted_mae,
+    'omae' : MeanAbsoluteError()
+    }
 
 lr_dict = {
     'r7e4' : 7e-4,
@@ -45,10 +57,6 @@ bs_dict = {
     'b32' : 32,
     }
 
-losses_dict = {
-    'wmae': weighted_mae,
-    'mae' : MeanAbsoluteError()
-    }
 
 if __name__ == "__main__":
     # Create an argument parser
@@ -76,6 +84,7 @@ if __name__ == "__main__":
         save_path = SAVE_PATH, 
         refd_path = REFD_PATH, 
         epochs = args.epochs,
+        models_dict = models_dict,
         losses_dict = losses_dict, 
         lr_dict = lr_dict, 
         bs_dict = bs_dict
