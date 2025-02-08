@@ -17,7 +17,7 @@ add_input_noise = False
 input_noise_stddev = 0.1
 ######### EDIT ABOVE #########
 
-def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
+def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict, keras_train=False):
 
     DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
 
@@ -71,10 +71,10 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
     ################################
     # START THE EXPERIMENT ITERATOR
     ################################
-    for (bs_id, bs), (lr_id, gen_lr), (loss_id, loss_fn), (i_id, inputs_channels), (t_id, target_channels), (s_id, static_channels) in itertools.product(
-        bs_dict.items(), lr_dict.items(), losses_dict.items(), inputs_dict.items(), target_dict.items(), static_dict.items()):
+    for (model_id, model_name), (bs_id, bs), (lr_id, gen_lr), (loss_id, loss_fn), (i_id, inputs_channels), (t_id, target_channels), (s_id, static_channels) in itertools.product(
+        models_dict.items(), bs_dict.items(), lr_dict.items(), losses_dict.items(), inputs_dict.items(), target_dict.items(), static_dict.items()):
         
-        model_name = models_dict[model_id]
+        # model_name = models_dict[model_id]
 
         print('\nRunning in Exp. loop next ...')
         print('#'*100)
@@ -96,10 +96,10 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
         X_val, y_val, S_val       = take_paired_data_subset_by_bounds(X, y, S, bounds=(11323, 13149)) # 2005 JAN 01 : 2009 DEC 31 -> Edit here
 
         # Print details of the data
-        print(f"X_train shape: {X_train.shape}, y_train shape: {y_train.shape}")
-        print(f"X_val shape: {X_val.shape}, y_val shape: {y_val.shape}")
+        print(f"X_train shape: {X_train.shape}, S_train shape: {S_train.shape}, y_train shape: {y_train.shape}")
+        print(f"X_val shape: {X_val.shape}, S_val shape: {S_val.shape}, y_val shape: {y_val.shape}")
 
-        exp_prefix = f"{prefix}_{model_name}_{loss_id}_{i_id}_{t_id}_{lr_id}_{bs_id}"
+        exp_prefix = f"{prefix}_{model_id}_{loss_id}_{i_id}_{t_id}_{lr_id}_{bs_id}"
         print(f'\nInitiate experiment: {exp_prefix}')
 
         ############################# INITIALIZE MODEL TRAINERS #############################
@@ -129,45 +129,43 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
                 enable_function = True,
                 )
             
-            # mt.train_by_fit(
-            #     train_data = (X_train, y_train), 
-            #     val_data = (X_val, y_val), 
-            #     epochs = epochs,  # Edit here
-            #     batch_size = bs, 
-            #     monitor="val_loss",
-            #     mode = "min",
-            #     min_lr = 1e-10,
-            #     save_ckpt = True,
-            #     ckpt_interval = 1,
-            #     save_ckpt_best = True,
-            #     # lrdecay_scheduler = False,
-            #     # lrdecay_factor = 0.1,
-            #     # lrdecay_wait = 3,
-            #     # lrdecay_interval = 1,
-            #     reducelr_on_plateau = True,
-            #     reducelr_factor = 0.1,
-            #     reducelr_patience = 7,
-            #     early_stopping=False,
-            #     early_stopping_patience = 18,
-            # )
-
-            mt.train(
-                train_data = (X_train, S_train, y_train), 
-                val_data = (X_val, S_val, y_val), 
-                epochs = epochs,  # Edit here
-                batch_size = bs, 
-                monitor="val_loss",
-                mode = "min",
-                min_lr = 1e-10,
-                save_ckpt = True,
-                ckpt_interval = 1,
-                save_ckpt_best = True,
-                reducelr_on_plateau = True,
-                reducelr_factor = 0.1,
-                reducelr_patience = 12,
-                early_stopping=False,
-                early_stopping_patience = 18,
-            )
+            # if keras_train:
+            #     mt.train_by_fit(
+            #         train_data = (X_train, y_train), 
+            #         val_data = (X_val, y_val), 
+            #         epochs = epochs,  # Edit here
+            #         batch_size = bs, 
+            #         monitor="val_loss",
+            #         mode = "min",
+            #         min_lr = 1e-10,
+            #         save_ckpt = True,
+            #         ckpt_interval = 1,
+            #         save_ckpt_best = True,
+            #         reducelr_on_plateau = True,
+            #         reducelr_factor = 0.1,
+            #         reducelr_patience = 7,
+            #         early_stopping=False,
+            #         early_stopping_patience = 18,
+            #     )
+            
+            # else:
+            #     mt.train(
+            #         train_data = (X_train, S_train, y_train), 
+            #         val_data = (X_val, S_val, y_val), 
+            #         epochs = epochs,  # Edit here
+            #         batch_size = bs, 
+            #         monitor="val_loss",
+            #         mode = "min",
+            #         min_lr = 1e-10,
+            #         save_ckpt = True,
+            #         ckpt_interval = 1,
+            #         save_ckpt_best = True,
+            #         reducelr_on_plateau = True,
+            #         reducelr_factor = 0.1,
+            #         reducelr_patience = 12,
+            #         early_stopping=False,
+            #         early_stopping_patience = 18,
+            #     )
 
             mt.plot_training_curves()
         

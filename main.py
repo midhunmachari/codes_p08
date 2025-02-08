@@ -66,7 +66,6 @@ if __name__ == "__main__":
     parser.add_argument('--pwd', type=str, required=True, help='Run/Job submission directory')
     parser.add_argument('--prefix', type=str, required=True, help='Prefix for the experiment run')
     parser.add_argument('--epochs', type=int, default=10, help='Number of epochs to train') 
-    parser.add_argument('--model_id', type=str, required=True, help='one of Model ID: u01 ... u10')
 
     # Parse the command-line arguments
     args = parser.parse_args()
@@ -79,7 +78,6 @@ if __name__ == "__main__":
     #### EDIT ABOVE ####
     RunExperiment(
         prefix = args.prefix, 
-        model_id = args.model_id,
         data_path = DATA_PATH, 
         save_path = SAVE_PATH, 
         refd_path = REFD_PATH, 

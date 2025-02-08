@@ -56,22 +56,6 @@ python3 "$WRKDIR/$SCRIPTNAME" \
         --pwd "$WRKDIR" \
         --prefix "$PREFIX" \
         --epochs "$EPOCHS" \
-        --model_id "u01"
-
-# # # # # # # # # # # 
-# Refer Table Below #
-# ----------------- #
-# 'u01': 'unet'     #
-# 'u02': 'aunet'    #
-# 'u03': 'rcunet'   #
-# 'u04': 'arcunet'  # 
-# 'u05': 'rsunet'   #
-# 'u06': 'arsunet'  #
-# 'u07': 'r2unet'   #
-# 'u08': 'ar2unet'  #
-# 'u09': 'r2unet2'  #
-# 'u10': 'ar2unet2' #
-# # # # # # # # # # # 
 
 # Print completion message
 echo "Job exit at $(date '+%Y-%m-%d %H:%M:%S')"
