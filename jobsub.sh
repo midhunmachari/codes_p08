@@ -33,8 +33,8 @@ fi
 
 SCRIPTNAME='main.py'
 # Assign arguments with default values
-PREFIX="${1:-p05a}"   # Default: p05
-EPOCHS="${2:-101}"   # Default: 101
+PREFIX="${1:-p08a}"   # Default: p08
+EPOCHS="${2:-301}"   # Default: 101
 
 ####################### EDIT ABOVE #######################
 
@@ -50,6 +50,7 @@ fi
 
 # Activate the conda environment
 source /nlsasfs/home/precipitation/midhunm/Conda/bin/activate tf2
+conda list
 
 # Execute the Python script
 python3 "$WRKDIR/$SCRIPTNAME" \

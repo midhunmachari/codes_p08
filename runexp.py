@@ -17,7 +17,7 @@ add_input_noise = False
 input_noise_stddev = 0.1
 ######### EDIT ABOVE #########
 
-def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict, keras_train=False):
+def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict, keras_train=False):
 
     DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
 
@@ -96,9 +96,22 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
         X_val, y_val, S_val       = take_paired_data_subset_by_bounds(X, y, S, bounds=(11323, 13149)) # 2005 JAN 01 : 2009 DEC 31 -> Edit here
 
         # Print details of the data
+        print("\nArray shapes:")
         print(f"X_train shape: {X_train.shape}, S_train shape: {S_train.shape}, y_train shape: {y_train.shape}")
         print(f"X_val shape: {X_val.shape}, S_val shape: {S_val.shape}, y_val shape: {y_val.shape}")
 
+        print("\nMax values:")
+        print(f"X_train max: {X_train.max():.4f}, S_train max: {S_train.max():.4f}, y_train max: {y_train.max():.4f}")
+        print(f"X_val max: {X_val.max() if X_val.size > 0 else 'N/A'}, "  # Handle empty arrays
+            f"S_val max: {S_val.max() if S_val.size > 0 else 'N/A'}, "
+            f"y_val max: {y_val.max() if y_val.size > 0 else 'N/A'}")
+
+        print("\nMin values:")
+        print(f"X_train min: {X_train.min():.4f}, S_train min: {S_train.min():.4f}, y_train min: {y_train.min():.4f}")
+        print(f"X_val min: {X_val.min() if X_val.size > 0 else 'N/A'}, "  # Handle empty arrays
+            f"S_val min: {S_val.min() if S_val.size > 0 else 'N/A'}, "
+            f"y_val min: {y_val.min() if y_val.size > 0 else 'N/A'}")
+        
         exp_prefix = f"{prefix}_{model_id}_{loss_id}_{i_id}_{t_id}_{lr_id}_{bs_id}"
         print(f'\nInitiate experiment: {exp_prefix}')
 
@@ -109,7 +122,7 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
             Train UNET variants -> Deterministic Modelling
             """
             gen_arch = configure_model(
-                model_id, 
+                model_name, 
                 input_shape = X_train.shape[1:],
                 target_shape = y_train.shape[1:],
                 input_shape_hr = S_train.shape[1:],
@@ -118,6 +131,7 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
                 add_input_noise = add_input_noise,
                 input_noise_stddev = input_noise_stddev,
                 )
+            # print(gen_arch.summary())
 
             mt = ModelTraining(
                 prefix = exp_prefix, 
@@ -129,43 +143,43 @@ def RunExperiment(prefix, model_id, data_path, save_path, refd_path, epochs, mod
                 enable_function = True,
                 )
             
-            # if keras_train:
-            #     mt.train_by_fit(
-            #         train_data = (X_train, y_train), 
-            #         val_data = (X_val, y_val), 
-            #         epochs = epochs,  # Edit here
-            #         batch_size = bs, 
-            #         monitor="val_loss",
-            #         mode = "min",
-            #         min_lr = 1e-10,
-            #         save_ckpt = True,
-            #         ckpt_interval = 1,
-            #         save_ckpt_best = True,
-            #         reducelr_on_plateau = True,
-            #         reducelr_factor = 0.1,
-            #         reducelr_patience = 7,
-            #         early_stopping=False,
-            #         early_stopping_patience = 18,
-            #     )
+            if keras_train:
+                mt.train_by_fit(
+                    train_data = (X_train, S_train, y_train), 
+                    val_data = (X_val, S_val, y_val), 
+                    epochs = epochs,  # Edit here
+                    batch_size = bs, 
+                    monitor="val_loss",
+                    mode = "min",
+                    min_lr = 1e-10,
+                    save_ckpt = True,
+                    ckpt_interval = 1,
+                    save_ckpt_best = True,
+                    reducelr_on_plateau = True,
+                    reducelr_factor = 0.1,
+                    reducelr_patience = 12,
+                    early_stopping=True,
+                    early_stopping_patience = 32,
+                )
             
-            # else:
-            #     mt.train(
-            #         train_data = (X_train, S_train, y_train), 
-            #         val_data = (X_val, S_val, y_val), 
-            #         epochs = epochs,  # Edit here
-            #         batch_size = bs, 
-            #         monitor="val_loss",
-            #         mode = "min",
-            #         min_lr = 1e-10,
-            #         save_ckpt = True,
-            #         ckpt_interval = 1,
-            #         save_ckpt_best = True,
-            #         reducelr_on_plateau = True,
-            #         reducelr_factor = 0.1,
-            #         reducelr_patience = 12,
-            #         early_stopping=False,
-            #         early_stopping_patience = 18,
-            #     )
+            else:
+                mt.train(
+                    train_data = (X_train, S_train, y_train), 
+                    val_data = (X_val, S_val, y_val), 
+                    epochs = epochs,  # Edit here
+                    batch_size = bs, 
+                    monitor="val_loss",
+                    mode = "min",
+                    min_lr = 1e-10,
+                    save_ckpt = True,
+                    ckpt_interval = 1,
+                    save_ckpt_best = True,
+                    reducelr_on_plateau = True,
+                    reducelr_factor = 0.1,
+                    reducelr_patience = 12,
+                    early_stopping=True,
+                    early_stopping_patience = 32,
+                )
 
             mt.plot_training_curves()
         

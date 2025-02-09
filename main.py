@@ -36,11 +36,11 @@ else:
 ########################################## EXECUTION SNIPPET BELOW #########################################
 
 models_dict = {
-    'u01_cnn1': 'unet',
-    'u02_att1': 'unet-att',
-    'u03_rec1': 'unet-rec',
-    'u04_res1': 'unet-res', 
-    'u05_r2a1': 'unet-r2a',
+    'uncnn1': 'unet',
+    'unatt1': 'attention_unet',
+    'unrec1': 'recurrent_unet',
+    'unres1': 'residual_unet', 
+    'unrra1': 'recurrent_residual_attention_unet',
     }
 
 losses_dict = {
@@ -50,7 +50,7 @@ losses_dict = {
 
 lr_dict = {
     'r7e4' : 7e-4,
-    'r1e4' : 1e-4,
+    # 'r1e4' : 1e-4,
     }
 
 bs_dict = {
@@ -87,3 +87,28 @@ if __name__ == "__main__":
         lr_dict = lr_dict, 
         bs_dict = bs_dict
     )
+
+
+# ### Comment above and uncomment below for local check
+
+# if __name__ == "__main__":
+
+#     #### EDIT BELOW ####
+#     prefix = 'tst'
+#     epochs = 2
+#     REFD_PATH = "/home/midhunm/NIMBUS/protem/midhun/AI4KLIM/DATASETS/DATASET_IND32M/DATA_TRANS/IND32M_010_GRID.nc"
+#     DATA_PATH = "/home/midhunm/NIMBUS/protem/midhun/AI4KLIM/DATASETS/DATASET_IND32M/DATA_TRANS/dummy"
+#     SAVE_PATH = "/home/midhunm/GIT/TEST"
+    
+#     #### EDIT ABOVE ####
+#     RunExperiment(
+#         prefix = prefix, 
+#         data_path = DATA_PATH, 
+#         save_path = SAVE_PATH, 
+#         refd_path = REFD_PATH, 
+#         epochs = epochs,
+#         models_dict = models_dict,
+#         losses_dict = losses_dict, 
+#         lr_dict = lr_dict, 
+#         bs_dict = bs_dict
+#     )

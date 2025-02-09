@@ -77,7 +77,7 @@ def configure_model(
             last_conv_filters = 16,
             )
     
-    elif model_id == 'unet-att': # Recurrent-U-Net
+    elif model_id == 'attention_unet': 
         return MegaUNet(
             input_shape = input_shape,
             target_shape = target_shape,
@@ -93,7 +93,7 @@ def configure_model(
             last_conv_filters = 16,
             ) 
 
-    elif model_id == 'unet-rec': # Residual-U-Net 
+    elif model_id == 'recurrent_unet':
         return MegaUNet(
             input_shape = input_shape,
             target_shape = target_shape,
@@ -110,7 +110,7 @@ def configure_model(
             last_conv_filters = 16,
             ) 
     
-    elif model_id == 'unet-res': # Attention-U-Net 
+    elif model_id == 'residual_unet': # Attention-U-Net 
         return MegaUNet(
             input_shape = input_shape,
             target_shape = target_shape,
@@ -126,7 +126,7 @@ def configure_model(
             last_conv_filters = 16,
             ) 
     
-    elif model_id == 'unet-r2a': # Sigmoid Discriminator
+    elif model_id == 'recurrent_residual_attention_unet': # Sigmoid Discriminator
         return MegaUNet(
             input_shape = input_shape,
             target_shape = target_shape,
