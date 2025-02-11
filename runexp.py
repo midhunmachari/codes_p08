@@ -71,9 +71,27 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
     ################################
     # START THE EXPERIMENT ITERATOR
     ################################
-    for (model_id, model_name), (bs_id, bs), (lr_id, gen_lr), (loss_id, loss_fn), (i_id, inputs_channels), (t_id, target_channels), (s_id, static_channels) in itertools.product(
-        models_dict.items(), bs_dict.items(), lr_dict.items(), losses_dict.items(), inputs_dict.items(), target_dict.items(), static_dict.items()):
-        
+    # for (model_id, model_name), (bs_id, bs), (lr_id, gen_lr), (loss_id, loss_fn), (i_id, inputs_channels), (t_id, target_channels), (s_id, static_channels) in itertools.product(
+    #     models_dict.items(), bs_dict.items(), lr_dict.items(), losses_dict.items(), inputs_dict.items(), target_dict.items(), static_dict.items()):
+
+    for (
+        (loss_id, loss_fn), 
+        (lr_id, gen_lr), 
+        (bs_id, bs), 
+        (i_id, inputs_channels), 
+        (t_id, target_channels), 
+        (s_id, static_channels), 
+        (model_id, model_name)
+    ) in itertools.product(
+        losses_dict.items(), 
+        lr_dict.items(), 
+        bs_dict.items(), 
+        inputs_dict.items(), 
+        target_dict.items(), 
+        static_dict.items(), 
+        models_dict.items()
+    ):
+
         # model_name = models_dict[model_id]
 
         # print('\nRunning in Exp. loop next ...')
