@@ -54,6 +54,8 @@ lr_dict = {
     }
 
 bs_dict = {
+    'b08' : 8,
+    'b16' : 16,
     'b32' : 32,
     }
 
@@ -85,7 +87,8 @@ if __name__ == "__main__":
         models_dict = models_dict,
         losses_dict = losses_dict, 
         lr_dict = lr_dict, 
-        bs_dict = bs_dict
+        bs_dict = bs_dict,
+        keras_train=False,
     )
 
 
