@@ -116,7 +116,7 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
         print(f'\nInitiate experiment: {exp_prefix}')
         
         # Free some memory
-        del X, y, S
+        # del X, y, S
         ############################# INITIALIZE MODEL TRAINERS #############################
         # try:
 
