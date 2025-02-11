@@ -50,13 +50,11 @@ losses_dict = {
 
 lr_dict = {
     'r7e4' : 7e-4,
-    'r1e4' : 1e-4,
     }
 
 bs_dict = {
     'b08' : 8,
     'b16' : 16,
-    'b32' : 32,
     }
 
 
