@@ -183,9 +183,10 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
 
             mt.plot_training_curves()
         
-            X_test, _, S_test = take_paired_data_subset_by_bounds(X, y, bounds=(11323, None)) # 2010 JAN 01 : 2023 DEC 31 -> Edit here
+            S_test = take_paired_data_subset_by_bounds(X, y, bounds=(11323, None)) # 2010 JAN 01 : 2023 DEC 31 -> Edit here
+            print(S_test)
             mt.generate_data_and_builf_netcdf(
-                [X_test, S_test],
+                [S_test],
                 model_path = None,
                 refd_path=REFD_PATH, 
                 batch_size = 32, 

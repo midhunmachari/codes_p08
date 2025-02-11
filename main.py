@@ -36,11 +36,11 @@ else:
 ########################################## EXECUTION SNIPPET BELOW #########################################
 
 models_dict = {
-    'uncnn1': 'unet',
-    'unatt1': 'attention_unet',
-    'unrec1': 'recurrent_unet',
-    'unres1': 'residual_unet', 
-    'unrra1': 'recurrent_residual_attention_unet',
+    'ucnn1': 'unet',
+    'uatt1': 'attention_unet',
+    'urec1': 'recurrent_unet',
+    'ures1': 'residual_unet', 
+    'urra1': 'recurrent_residual_attention_unet',
     }
 
 losses_dict = {
