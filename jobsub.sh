@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=p8q1b14
-#SBATCH --error=p8q1b14.%J.err
-#SBATCH --output=p8q1b14.%J.out
+#SBATCH --job-name=p8q2b14
+#SBATCH --error=p8q2b14.%J.err
+#SBATCH --output=p8q2b14.%J.out
 #SBATCH --partition=testp
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
@@ -17,6 +17,8 @@ if [[ "$1" == "--help" ]]; then
     echo "  EPOCHS    Optional. Number of epochs for training. Default: 101"
     exit 0
 fi
+
+# P08.Q1.B14
 
 # Detect working directory and normalize paths
 PWD=$(pwd)
