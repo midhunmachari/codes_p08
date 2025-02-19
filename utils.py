@@ -1,6 +1,4 @@
-from ai4klima.tensorflow.models import MegaUNet
-
-
+from ai4klima.tensorflow.models import MegaUNet, SRCNN, FSRCNN, EDRN, SRDRN
 
 def configure_model(
         model_id, 
@@ -12,9 +10,7 @@ def configure_model(
         add_input_noise = False,
         input_noise_stddev = 0.1,      
         ):
-
-
-
+    
     """
     MegaUNet(
         input_shape,
@@ -110,7 +106,7 @@ def configure_model(
             last_conv_filters = 16,
             ) 
     
-    elif model_id == 'residual_unet': # Attention-U-Net 
+    elif model_id == 'residual_unet':
         return MegaUNet(
             input_shape = input_shape,
             target_shape = target_shape,
@@ -126,7 +122,7 @@ def configure_model(
             last_conv_filters = 16,
             ) 
     
-    elif model_id == 'recurrent_residual_attention_unet': # Sigmoid Discriminator
+    elif model_id == 'recurrent_residual_attention_unet': 
         return MegaUNet(
             input_shape = input_shape,
             target_shape = target_shape,
@@ -143,6 +139,78 @@ def configure_model(
             last_conv_filters = 16,
             ) 
 
+    elif model_id == 'srcnn':
+        return SRCNN(
+            input_shape = input_shape,
+            target_shape = target_shape,
+            input_shape_2 = input_shape_hr,
+            n_classes = 1,
+            output_activation='linear',
+            last_kernel_size = 5,
+            last_kernel_stride = 1,
+            activation = activation,
+            add_input_noise = add_input_noise,
+            input_noise_stddev = input_noise_stddev,
+            )
+
+    elif model_id == 'fsrcnn':
+        return FSRCNN(
+            input_shape = input_shape,
+            target_shape = target_shape,
+            ups_blocks_factors = (5, 2),
+            input_shape_2 = input_shape_hr,
+            output_activation='linear',
+            n_classes = 1,
+            last_kernel_size = 3, 
+            last_kernel_stride = 1, 
+            n = 128,
+            d = 64, 
+            s = 32,
+            m = 4,
+            activation = activation,
+            ups_method = ups_method, 
+            add_input_noise = add_input_noise,
+            input_noise_stddev = input_noise_stddev,
+            )
+
+    elif model_id == 'edrn':
+        return EDRN(
+            input_shape = input_shape,
+            target_shape = target_shape,
+            ups_blocks_factors = (5, 2),
+            input_shape_2 = input_shape_hr,
+            output_activation='linear',
+            n_filters = 64,
+            n_res_blocks = 16, 
+            n_ups_filters = 128,
+            n_classes = 1,
+            last_kernel_size = 9,
+            last_kernel_stride = 1,
+            activation = activation,
+            ups_method = ups_method, 
+            add_input_noise = add_input_noise,
+            input_noise_stddev = input_noise_stddev,
+            )
+
+    elif model_id == 'srdrn':
+        return SRDRN(
+            input_shape = input_shape,
+            target_shape = target_shape,
+            ups_blocks_factors = (5, 2),
+            input_shape_2 = input_shape_hr,
+            output_activation='linear',
+            n_filters = 64,
+            n_res_blocks = 16, 
+            n_ups_filters = 128,
+            n_classes = 1,
+            last_kernel_size = 9,
+            last_kernel_stride = 1,
+            activation = activation,
+            ups_method = ups_method, 
+            add_input_noise = add_input_noise,
+            input_noise_stddev = input_noise_stddev,
+            )
+
     else:
         raise ValueError(
             f"Invalid model_id: {model_id}"
@@ -150,17 +218,23 @@ def configure_model(
 
 #%% Test below
 
-# model_name = 'unet-'
+# model_names = ['srcnn', 'fsrcnn', 'edrn', 
+#                 'srdrn', 'unet', 'attention_unet', 
+#                 'recurrent_unet', 'residual_unet', 'recurrent_residual_attention_unet',]
 
-# m = configure_model(
-#     model_id = model_name, 
-#     input_shape = (32, 32, 18),
-#     target_shape = (320, 320, 1),
-#     input_shape_hr = (320, 320, 1),  
-#     )
+# for model_name in model_names:
+#     m = configure_model(
+#         model_id = model_name, 
+#         input_shape = (32, 32, 18),
+#         target_shape = (320, 320, 1),
+#         input_shape_hr = (320, 320, 1), 
+#         activation = 'prelu',
+#         ups_method = 'convtranspose',
+#         add_input_noise = True,
+#         input_noise_stddev = 0.1,    
+#         )
 
-# m.summary()
-# print(m.name)
-# m.save(f"/home/midhunm/models_arch/{model_name}.keras")
-    
-# %%
+#     m.summary()
+#     print(m.name)
+#     m.save(f"/home/midhunm/f{model_name}_noisy.keras")
+        
