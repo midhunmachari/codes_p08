@@ -5,7 +5,7 @@ Experiment description: P05A_DeepEnsemble_Globals
 """
 import itertools
 
-from ai4klima.tensorflow.train import ModelTraining
+from ai4klima.tensorflow.train import CustomModelTrainer
 from ai4klima.tensorflow.utils import load_inputs_target_pairs, take_paired_data_subset_by_bounds
 
 from utils import configure_model
@@ -148,7 +148,7 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
                 )
             # print(gen_arch.summary())
 
-            mt = ModelTraining(
+            mt = CustomModelTrainer(
                 prefix = exp_prefix, 
                 save_path = SAVE_PATH,
                 generator = gen_arch,
@@ -158,43 +158,23 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
                 enable_function = True,
                 )
             
-            if keras_train:
-                mt.train_by_fit(
-                    train_data = (X_train, S_train, y_train), 
-                    val_data = (X_val, S_val, y_val), 
-                    epochs = epochs,  # Edit here
-                    batch_size = bs, 
-                    monitor="val_loss",
-                    mode = "min",
-                    min_lr = 1e-10,
-                    save_ckpt = True,
-                    ckpt_interval = 1,
-                    save_ckpt_best = True,
-                    reducelr_on_plateau = True,
-                    reducelr_factor = 0.1,
-                    reducelr_patience = 12,
-                    early_stopping=True,
-                    early_stopping_patience = 32,
-                )
-            
-            else:
-                mt.train(
-                    train_data = (X_train, S_train, y_train), 
-                    val_data = (X_val, S_val, y_val), 
-                    epochs = epochs,  # Edit here
-                    batch_size = bs, 
-                    monitor="val_loss",
-                    mode = "min",
-                    min_lr = 1e-10,
-                    save_ckpt = True,
-                    ckpt_interval = 1,
-                    save_ckpt_best = True,
-                    reducelr_on_plateau = True,
-                    reducelr_factor = 0.1,
-                    reducelr_patience = 12,
-                    early_stopping=True,
-                    early_stopping_patience = 32,
-                )
+            mt.train(
+                train_data = (X_train, S_train, y_train), 
+                val_data = (X_val, S_val, y_val), 
+                epochs = epochs,  # Edit here
+                batch_size = bs, 
+                monitor = "val_loss",
+                mode = "min",
+                min_lr = 1e-10,
+                save_ckpt = True,
+                ckpt_interval = 1,
+                save_ckpt_best = True,
+                reducelr_on_plateau = True,
+                reducelr_factor = 0.025,
+                reducelr_patience = 2. #12,
+                early_stopping = True,
+                early_stopping_patience = 5, #32,
+            )
 
             mt.plot_training_curves()
 
