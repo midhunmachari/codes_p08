@@ -89,30 +89,4 @@ if __name__ == "__main__":
         losses_dict = losses_dict, 
         lr_dict = lr_dict, 
         bs_dict = bs_dict,
-        keras_train=False,
     )
-
-
-# ### Comment above and uncomment below for local check
-
-# if __name__ == "__main__":
-
-#     #### EDIT BELOW ####
-#     prefix = 'tst'
-#     epochs = 2
-#     REFD_PATH = "/home/midhunm/NIMBUS/protem/midhun/AI4KLIM/DATASETS/DATASET_IND32M/DATA_TRANS/IND32M_010_GRID.nc"
-#     DATA_PATH = "/home/midhunm/NIMBUS/protem/midhun/AI4KLIM/DATASETS/DATASET_IND32M/DATA_TRANS/dummy"
-#     SAVE_PATH = "/home/midhunm/GIT/TEST"
-    
-#     #### EDIT ABOVE ####
-#     RunExperiment(
-#         prefix = prefix, 
-#         data_path = DATA_PATH, 
-#         save_path = SAVE_PATH, 
-#         refd_path = REFD_PATH, 
-#         epochs = epochs,
-#         models_dict = models_dict,
-#         losses_dict = losses_dict, 
-#         lr_dict = lr_dict, 
-#         bs_dict = bs_dict
-#     )

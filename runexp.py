@@ -17,7 +17,7 @@ add_input_noise = False
 input_noise_stddev = 0.1
 ######### EDIT ABOVE #########
 
-def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict, keras_train=False):
+def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
 
     DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
 
@@ -171,9 +171,9 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
                 save_ckpt_best = True,
                 reducelr_on_plateau = True,
                 reducelr_factor = 0.025,
-                reducelr_patience = 2, #12,
+                reducelr_patience = 12,
                 early_stopping = True,
-                early_stopping_patience = 5, #32,
+                early_stopping_patience = 32,
             )
 
             mt.plot_training_curves()
