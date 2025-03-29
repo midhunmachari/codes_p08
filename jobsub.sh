@@ -51,7 +51,7 @@ if [[ ! -f "$WRKDIR/$SCRIPTNAME" ]]; then
 fi
 
 # Activate the conda environment
-source /nlsasfs/home/precipitation/midhunm/Conda/bin/activate tf2_test
+source /nlsasfs/home/precipitation/midhunm/Conda/bin/activate tf2
 conda list
 
 # Execute the Python script
