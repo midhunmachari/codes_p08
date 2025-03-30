@@ -171,9 +171,9 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
                 save_ckpt_best = True,
                 reducelr_on_plateau = True,
                 reducelr_factor = 0.25,
-                reducelr_patience = 12,
+                reducelr_patience = 3, #12,
                 early_stopping = True,
-                early_stopping_patience = 32,
+                early_stopping_patience = 9, #32,
             )
 
             mt.plot_training_curves()
