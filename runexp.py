@@ -1,7 +1,7 @@
 """
 author: Midhun Murukesh
 
-Experiment description: P05A_DeepEnsemble_Globals
+Experiment description: P08A_DeepDown_CMIP6
 """
 import itertools
 
@@ -15,6 +15,7 @@ activation = 'prelu'
 ups_method = 'convtranspose'
 add_input_noise = False
 input_noise_stddev = 0.1
+reducelr_on_plateau = False
 ######### EDIT ABOVE #########
 
 def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
@@ -169,11 +170,11 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
                 save_ckpt = True,
                 ckpt_interval = 1,
                 save_ckpt_best = True,
-                reducelr_on_plateau = True,
-                reducelr_factor = 0.25,
-                reducelr_patience = 3, #12,
+                reducelr_on_plateau = reducelr_on_plateau,
+                reducelr_factor = 0.1,
+                reducelr_patience = 12,
                 early_stopping = True,
-                early_stopping_patience = 9, #32,
+                early_stopping_patience = 32,
             )
 
             mt.plot_training_curves()
