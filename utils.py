@@ -237,4 +237,17 @@ def configure_model(
 #     m.summary()
 #     print(m.name)
 #     m.save(f"/home/midhunm/f{model_name}_noisy.keras")
-        
+
+
+def load_pretrained_model(
+        model_id, 
+        model_path, 
+        # input_shape,
+        # target_shape,
+        # input_shape_hr,
+        # activation = 'prelu',
+        # ups_method = 'convtranspose',
+        # add_input_noise = False,
+        # input_noise_stddev = 0.1,      
+        ):
+    pass
