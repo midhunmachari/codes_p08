@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=p8q1
-#SBATCH --error=p8q1.%J.err
-#SBATCH --output=p8q1.%J.out
+#SBATCH --job-name=p8q3.mpih
+#SBATCH --error=p8q3.mpih.%J.err
+#SBATCH --output=p8q3.mpih.%J.out
 #SBATCH --partition=testp
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
