@@ -261,16 +261,34 @@ def load_keras_model(model_path, custom_objects=None):
         print(f"Failed to load model from {model_path}: {e}")
         return None
 
+def load_pretrained_model(model_id, model_path):
+    if model_id == 'unet': # U-Net
+        return load_keras_model(f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    
+    elif model_id == 'attention_unet': 
+        return load_keras_model(f"{model_path}/p08a_q01_u02att_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
-def load_pretrained_model(
-        model_id, 
-        model_path, 
-        # input_shape,
-        # target_shape,
-        # input_shape_hr,
-        # activation = 'prelu',
-        # ups_method = 'convtranspose',
-        # add_input_noise = False,
-        # input_noise_stddev = 0.1,      
-        ):
-    pass
+    elif model_id == 'recurrent_unet':
+        return load_keras_model(f"{model_path}/p08a_q01_u03rec_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    
+    elif model_id == 'residual_unet':
+        return load_keras_model(f"{model_path}/p08a_q01_u04res_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    
+    elif model_id == 'recurrent_residual_attention_unet': 
+        return load_keras_model(f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'srcnn':
+        return load_keras_model(f"{model_path}/p08a_q01_b01src_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'fsrcnn':
+        return load_keras_model(f"{model_path}/p08a_q01_b02fsr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'edrn':
+        return load_keras_model(f"{model_path}/p08a_q01_b03edr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'srdrn':
+        return load_keras_model(f"{model_path}/p08a_q01_b04srd_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    else:
+        raise ValueError(
+            f"Invalid model_id: {model_id}"
+        )
