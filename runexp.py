@@ -29,7 +29,7 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
 
     # P08A.Q03.MPI-ESM1-2-HR Ready to launch
     inputs_dict = {
-        'era5': {
+        'mpih': {
             'prec' : f'{DATA_PATH}/IND32M_HRMIP_MPI-ESM1-2-HR_100_PREC_DAY_1979_2023_RBIL_LOG.npy',
 
             'z850' : f'{DATA_PATH}/IND32M_HRMIP_MPI-ESM1-2-HR_100_ZG850_DAY_1979_2023_RBIL_STD.npy',
