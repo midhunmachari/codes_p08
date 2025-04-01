@@ -262,7 +262,7 @@ def load_keras_model(model_path, custom_objects=None):
         return None
 
 def load_pretrained_model(model_id, model_path):
-    
+
     if model_id == 'unet': # U-Net
         print(f"\t[INFO] Loading ... 'UNET' model")
         return load_keras_model(f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
@@ -302,3 +302,56 @@ def load_pretrained_model(model_id, model_path):
         raise ValueError(
             f"Invalid model_id: {model_id}"
         )
+    
+def load_pretrained_model_path(model_id, model_path):
+
+    if model_id == 'unet': # U-Net
+        model_path = f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'UNET' model from {model_path}")
+        return model_path
+    
+    elif model_id == 'attention_unet':
+        model_path = f"{model_path}/p08a_q01_u02att_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'ATTENTION-UNET' model from {model_path}")
+        return model_path
+
+    elif model_id == 'recurrent_unet':
+        model_path = f"{model_path}/p08a_q01_u03rec_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'RECURRENT-UNET' model from {model_path}")
+        return model_path
+    
+    elif model_id == 'residual_unet':
+        model_path = f"{model_path}/p08a_q01_u04res_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'RESIDUAL-UNET' model from {model_path}")
+        return model_path
+    
+    elif model_id == 'recurrent_residual_attention_unet':
+        model_path = f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model from {model_path}")
+        return model_path
+
+    elif model_id == 'srcnn':
+        model_path = f"{model_path}/p08a_q01_b01src_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'SRCNN' model from {model_path}")
+        return model_path
+
+    elif model_id == 'fsrcnn':
+        model_path = f"{model_path}/p08a_q01_b02fsr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'FSRCNN' model from {model_path}")
+        return model_path
+
+    elif model_id == 'edrn':
+        model_path = f"{model_path}/p08a_q01_b03edr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'EDRN' model from {model_path}")
+        return model_path
+
+    elif model_id == 'srdrn':
+        model_path = f"{model_path}/p08a_q01_b04srd_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'SRDRN' model from {model_path}")
+        return model_path
+    
+    else:
+        raise ValueError(
+            f"Invalid model_id: {model_id}"
+        )
+    
