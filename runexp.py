@@ -138,9 +138,6 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
             """
             Train UNET variants -> Deterministic Modelling
             """
-            # gen_arch = load_pretrained_modelload_pretrained_model_path(...)
-            # print(gen_arch.summary())
-
             mt = CustomModelTrainer(prefix = exp_prefix, save_path=SAVE_PATH)
 
             # Generate test data
