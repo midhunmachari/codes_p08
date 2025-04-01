@@ -1,4 +1,5 @@
 from ai4klima.tensorflow.models import MegaUNet, SRCNN, FSRCNN, EDRN, SRDRN
+from ai4klima.tensorflow.losses import weighted_mae
 from tensorflow.keras.models import load_model
 
 def configure_model(
@@ -240,9 +241,7 @@ def configure_model(
 #     m.save(f"/home/midhunm/f{model_name}_noisy.keras")
 
 
-
-
-def load_keras_model(model_path, custom_objects=None):
+def load_keras_model(model_path, custom_objects={"weighted_mae": weighted_mae}):
     """
     Load a Keras model from the specified path with optional custom objects.
 
