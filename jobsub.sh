@@ -35,7 +35,7 @@ fi
 
 SCRIPTNAME='main.py'
 # Assign arguments with default values
-PREFIX="${1:-p08a_q01}"   # Default: p08
+PREFIX="${1:-p08a_q02}"   # Default: p08
 EPOCHS="${2:-201}"   # Default: 101
 
 ####################### EDIT ABOVE #######################

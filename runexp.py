@@ -102,30 +102,6 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
             r_id: {lr_id}, gen_lr: {gen_lr}
             b_id: {bs_id}, bs: {bs}
             """)
-
-        # Load the dataset for model training and validation
-        X, y, S = load_inputs_target_pairs(inputs_channels, target_channels, static_channels)
-
-        # Assuming X and y have the same number of samples
-        X_train, y_train, S_train = take_paired_data_subset_by_bounds(X, y, S, bounds=(None,  11323))
-        X_val, y_val, S_val       = take_paired_data_subset_by_bounds(X, y, S, bounds=(11323, 13149))
-
-        # Print details of the data
-        print("\nArray shapes:")
-        print(f"X_train shape: {X_train.shape}, S_train shape: {S_train.shape}, y_train shape: {y_train.shape}")
-        print(f"X_val shape: {X_val.shape}, S_val shape: {S_val.shape}, y_val shape: {y_val.shape}")
-
-        print("\nMax values:")
-        print(f"X_train max: {X_train.max():.4f}, S_train max: {S_train.max():.4f}, y_train max: {y_train.max():.4f}")
-        print(f"X_val max: {X_val.max() if X_val.size > 0 else 'N/A'}, "  # Handle empty arrays
-            f"S_val max: {S_val.max() if S_val.size > 0 else 'N/A'}, "
-            f"y_val max: {y_val.max() if y_val.size > 0 else 'N/A'}")
-
-        print("\nMin values:")
-        print(f"X_train min: {X_train.min():.4f}, S_train min: {S_train.min():.4f}, y_train min: {y_train.min():.4f}")
-        print(f"X_val min: {X_val.min() if X_val.size > 0 else 'N/A'}, "  # Handle empty arrays
-            f"S_val min: {S_val.min() if S_val.size > 0 else 'N/A'}, "
-            f"y_val min: {y_val.min() if y_val.size > 0 else 'N/A'}")
         
         exp_prefix = f"{prefix}_{model_id}_{loss_id}_{i_id}_{t_id}_{lr_id}_{bs_id}"
         print(f'\nInitiate experiment: {exp_prefix}')
@@ -148,7 +124,7 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
                 model_path   = load_pretrained_model_path(model_name, MODEL_PATH),
                 refd_path    = REFD_PATH, 
                 batch_size   = 8, 
-                save_raw_npy = True, # Edit here
+                save_raw_npy = False, # Edit here
                 build_netcdf = True, # Edit here
                 varname      = 'prec', 
                 start_date   = "2010-01-01",  # Edit here
