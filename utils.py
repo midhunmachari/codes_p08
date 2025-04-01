@@ -1,4 +1,5 @@
 from ai4klima.tensorflow.models import MegaUNet, SRCNN, FSRCNN, EDRN, SRDRN
+from tensorflow.keras.models import load_model
 
 def configure_model(
         model_id, 
@@ -240,7 +241,7 @@ def configure_model(
 
 #%%
 
-from tensorflow.keras.models import load_model
+
 
 def load_keras_model(model_path, custom_objects=None):
     """
