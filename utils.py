@@ -1,4 +1,5 @@
 from ai4klima.tensorflow.models import MegaUNet, SRCNN, FSRCNN, EDRN, SRDRN
+from tensorflow.keras.models import load_model
 
 def configure_model(
         model_id, 
@@ -239,15 +240,117 @@ def configure_model(
 #     m.save(f"/home/midhunm/f{model_name}_noisy.keras")
 
 
-def load_pretrained_model(
-        model_id, 
-        model_path, 
-        # input_shape,
-        # target_shape,
-        # input_shape_hr,
-        # activation = 'prelu',
-        # ups_method = 'convtranspose',
-        # add_input_noise = False,
-        # input_noise_stddev = 0.1,      
-        ):
-    pass
+
+
+def load_keras_model(model_path, custom_objects=None):
+    """
+    Load a Keras model from the specified path with optional custom objects.
+
+    Parameters:
+    - model_path (str): Path to the saved Keras model (HDF5 or SavedModel format).
+    - custom_objects (dict, optional): Dictionary of custom objects used in the model.
+
+    Returns:
+    - model: Loaded Keras model.
+    """
+    try:
+        model = load_model(model_path, custom_objects=custom_objects)
+        print(f"Model loaded successfully from {model_path}")
+        return model
+    except Exception as e:
+        print(f"Failed to load model from {model_path}: {e}")
+        return None
+
+def load_pretrained_model(model_id, model_path):
+
+    if model_id == 'unet': # U-Net
+        print(f"\t[INFO] Loading ... 'UNET' model")
+        return load_keras_model(f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    
+    elif model_id == 'attention_unet':
+        print(f"\t[INFO] Loading ... 'ATTENTION-UNET' model")
+        return load_keras_model(f"{model_path}/p08a_q01_u02att_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'recurrent_unet':
+        print(f"\t[INFO] Loading ... 'RECURRENT-UNET' model")
+        return load_keras_model(f"{model_path}/p08a_q01_u03rec_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    
+    elif model_id == 'residual_unet':
+        print(f"\t[INFO] Loading ... 'RESIDUAL-UNET' model")
+        return load_keras_model(f"{model_path}/p08a_q01_u04res_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    
+    elif model_id == 'recurrent_residual_attention_unet':
+        print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model")
+        return load_keras_model(f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'srcnn':
+        print(f"\t[INFO] Loading ... 'SRCNN' model")
+        return load_keras_model(f"{model_path}/p08a_q01_b01src_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'fsrcnn':
+        print(f"\t[INFO] Loading ... 'FSRCNN' model")
+        return load_keras_model(f"{model_path}/p08a_q01_b02fsr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'edrn':
+        print(f"\t[INFO] Loading ... 'EDRN' model")
+        return load_keras_model(f"{model_path}/p08a_q01_b03edr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+
+    elif model_id == 'srdrn':
+        print(f"\t[INFO] Loading ... 'SRDRN' model")
+        return load_keras_model(f"{model_path}/p08a_q01_b04srd_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+    else:
+        raise ValueError(
+            f"Invalid model_id: {model_id}"
+        )
+    
+def load_pretrained_model_path(model_id, model_path):
+
+    if model_id == 'unet': # U-Net
+        model_path = f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'UNET' model from {model_path}")
+        return model_path
+    
+    elif model_id == 'attention_unet':
+        model_path = f"{model_path}/p08a_q01_u02att_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'ATTENTION-UNET' model from {model_path}")
+        return model_path
+
+    elif model_id == 'recurrent_unet':
+        model_path = f"{model_path}/p08a_q01_u03rec_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'RECURRENT-UNET' model from {model_path}")
+        return model_path
+    
+    elif model_id == 'residual_unet':
+        model_path = f"{model_path}/p08a_q01_u04res_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'RESIDUAL-UNET' model from {model_path}")
+        return model_path
+    
+    elif model_id == 'recurrent_residual_attention_unet':
+        model_path = f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model from {model_path}")
+        return model_path
+
+    elif model_id == 'srcnn':
+        model_path = f"{model_path}/p08a_q01_b01src_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'SRCNN' model from {model_path}")
+        return model_path
+
+    elif model_id == 'fsrcnn':
+        model_path = f"{model_path}/p08a_q01_b02fsr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'FSRCNN' model from {model_path}")
+        return model_path
+
+    elif model_id == 'edrn':
+        model_path = f"{model_path}/p08a_q01_b03edr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'EDRN' model from {model_path}")
+        return model_path
+
+    elif model_id == 'srdrn':
+        model_path = f"{model_path}/p08a_q01_b04srd_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        print(f"\t[INFO] Loading ... 'SRDRN' model from {model_path}")
+        return model_path
+    
+    else:
+        raise ValueError(
+            f"Invalid model_id: {model_id}"
+        )

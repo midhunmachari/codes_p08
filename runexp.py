@@ -8,19 +8,19 @@ import itertools
 from ai4klima.tensorflow.train import CustomModelTrainer
 from ai4klima.tensorflow.utils import load_inputs_target_pairs, take_paired_data_subset_by_bounds
 
-from utils import configure_model
+from utils import configure_model, load_pretrained_model
 
 ######### EDIT BELOW #########
 activation = 'prelu'
 ups_method = 'convtranspose'
 add_input_noise = False
 input_noise_stddev = 0.1
-reducelr_on_plateau = False
+reducelr_on_plateau = True
 ######### EDIT ABOVE #########
 
-def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
+def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
 
-    DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
+    DATA_PATH, SAVE_PATH, MODEL_PATH, REFD_PATH = data_path, save_path, model_path, refd_path
 
     # Print the variables for debugging
     print(f"INFO: DATA_PATH: {DATA_PATH}")
@@ -138,16 +138,8 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
             """
             Train UNET variants -> Deterministic Modelling
             """
-            gen_arch = configure_model(
-                model_name, 
-                input_shape = X_train.shape[1:],
-                target_shape = y_train.shape[1:],
-                input_shape_hr = S_train.shape[1:],
-                activation = activation,
-                ups_method = ups_method,
-                add_input_noise = add_input_noise,
-                input_noise_stddev = input_noise_stddev,
-                )
+            gen_arch = load_pretrained_model(model_name, MODEL_PATH)
+                                        
             # print(gen_arch.summary())
 
             mt = CustomModelTrainer(
