@@ -47,13 +47,17 @@ models_dict = {
     'u05rra': 'recurrent_residual_attention_unet',
     }
 
+models_dict = dict(reversed(models_dict.items()))
+
 losses_dict = {
     'wmae': weighted_mae,
     # 'omae' : MeanAbsoluteError()
     }
 
 lr_dict = {
-    'r2e4' : 2e-4,
+    'r1e4' : 1e-4,
+    # 'r2e4' : 2e-4,
+    # 'r7e4' : 7e-4,
     }
 
 bs_dict = {
