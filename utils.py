@@ -240,7 +240,7 @@ def configure_model(
 
 #%%
 
-import tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model
 
 def load_keras_model(model_path, custom_objects=None):
     """
