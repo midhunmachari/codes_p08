@@ -106,8 +106,6 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
         exp_prefix = f"{prefix}_{model_id}_{loss_id}_{i_id}_{t_id}_{lr_id}_{bs_id}"
         print(f'\nInitiate experiment: {exp_prefix}')
         
-        # Free some memory
-        del X, y, S
         ############################# INITIALIZE MODEL TRAINERS #############################
         try:
 
