@@ -1,4 +1,5 @@
 from ai4klima.tensorflow.models import MegaUNet, SRCNN, FSRCNN, EDRN, SRDRN
+from tensorflow.keras.models import load_model
 
 def configure_model(
         model_id, 
@@ -237,6 +238,27 @@ def configure_model(
 #     m.summary()
 #     print(m.name)
 #     m.save(f"/home/midhunm/f{model_name}_noisy.keras")
+
+
+
+def load_keras_model(model_path, custom_objects=None):
+    """
+    Load a Keras model from the specified path with optional custom objects.
+
+    Parameters:
+    - model_path (str): Path to the saved Keras model (HDF5 or SavedModel format).
+    - custom_objects (dict, optional): Dictionary of custom objects used in the model.
+
+    Returns:
+    - model: Loaded Keras model.
+    """
+    try:
+        model = load_model(model_path, custom_objects=custom_objects)
+        print(f"Model loaded successfully from {model_path}")
+        return model
+    except Exception as e:
+        print(f"Failed to load model from {model_path}: {e}")
+        return None
 
 
 def load_pretrained_model(
