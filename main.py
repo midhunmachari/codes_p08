@@ -36,15 +36,17 @@ else:
 ########################################## EXECUTION SNIPPET BELOW #########################################
 
 models_dict = {
-    'b01src': 'srcnn',
-    'b02fsr': 'fsrcnn',
-    'b03edr': 'edrn',
-    'b04srd': 'srdrn',
+
     'u01cnn': 'unet',
     'u02att': 'attention_unet',
     'u03rec': 'recurrent_unet',
     'u04res': 'residual_unet', 
+    'b01src': 'srcnn',
+    'b02fsr': 'fsrcnn',
+    'b03edr': 'edrn',
+    'b04srd': 'srdrn',
     'u05rra': 'recurrent_residual_attention_unet',
+    
     }
 
 losses_dict = {
@@ -76,13 +78,15 @@ if __name__ == "__main__":
     #### EDIT BELOW ####
     REFD_PATH = "/nlsasfs/home/precipitation/midhunm/AI4KLIM/DATASET/DATA_IND32M/IND32M_010_GRID.nc"
     DATA_PATH = "/nlsasfs/home/precipitation/midhunm/AI4KLIM/DATASET/DATA_IND32M"
+    MODEL_PATH = "/nlsasfs/home/precipitation/midhunm/AI4KLIM/EXPMNTS/pretrained_weights"
     SAVE_PATH = f"{args.pwd}/.."
     
     #### EDIT ABOVE ####
     RunExperiment(
         prefix = args.prefix, 
         data_path = DATA_PATH, 
-        save_path = SAVE_PATH, 
+        save_path = SAVE_PATH,
+        model_path = MODEL_PATH,
         refd_path = REFD_PATH, 
         epochs = args.epochs,
         models_dict = models_dict,

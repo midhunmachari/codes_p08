@@ -8,7 +8,7 @@ import itertools
 from ai4klima.tensorflow.train import CustomModelTrainer
 from ai4klima.tensorflow.utils import load_inputs_target_pairs, take_paired_data_subset_by_bounds
 
-from utils import configure_model
+from utils import configure_model, load_pretrained_model
 
 ######### EDIT BELOW #########
 activation = 'prelu'
@@ -18,9 +18,9 @@ input_noise_stddev = 0.1
 reducelr_on_plateau = False
 ######### EDIT ABOVE #########
 
-def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
+def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
 
-    DATA_PATH, SAVE_PATH, REFD_PATH = data_path, save_path, refd_path
+    DATA_PATH, SAVE_PATH, MODEL_PATH, REFD_PATH = data_path, save_path, model_path, refd_path
 
     # Print the variables for debugging
     print(f"INFO: DATA_PATH: {DATA_PATH}")
@@ -138,16 +138,7 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
             """
             Train UNET variants -> Deterministic Modelling
             """
-            gen_arch = configure_model(
-                model_name, 
-                input_shape = X_train.shape[1:],
-                target_shape = y_train.shape[1:],
-                input_shape_hr = S_train.shape[1:],
-                activation = activation,
-                ups_method = ups_method,
-                add_input_noise = add_input_noise,
-                input_noise_stddev = input_noise_stddev,
-                )
+            gen_arch = load_pretrained_model(model_name, MODEL_PATH)
             # print(gen_arch.summary())
 
             mt = CustomModelTrainer(
@@ -160,25 +151,25 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
                 enable_function = True,
                 )
             
-            mt.train(
-                train_data = (X_train, S_train, y_train), 
-                val_data = (X_val, S_val, y_val), 
-                epochs = epochs,  # Edit here
-                batch_size = bs, 
-                monitor = "val_loss",
-                mode = "min",
-                min_lr = 1e-10,
-                save_ckpt = True,
-                ckpt_interval = 1,
-                save_ckpt_best = True,
-                reducelr_on_plateau = reducelr_on_plateau,
-                reducelr_factor = 0.1,
-                reducelr_patience = 12,
-                early_stopping = True,
-                early_stopping_patience = 32,
-            )
+            # mt.train(
+            #     train_data = (X_train, S_train, y_train), 
+            #     val_data = (X_val, S_val, y_val), 
+            #     epochs = epochs,  # Edit here
+            #     batch_size = bs, 
+            #     monitor = "val_loss",
+            #     mode = "min",
+            #     min_lr = 1e-10,
+            #     save_ckpt = True,
+            #     ckpt_interval = 1,
+            #     save_ckpt_best = True,
+            #     reducelr_on_plateau = reducelr_on_plateau,
+            #     reducelr_factor = 0.1,
+            #     reducelr_patience = 12,
+            #     early_stopping = True,
+            #     early_stopping_patience = 32,
+            # )
 
-            mt.plot_training_curves()
+            # mt.plot_training_curves()
 
             # Generate test data
             X, y, S = load_inputs_target_pairs(inputs_channels, target_channels, static_channels)

@@ -262,31 +262,41 @@ def load_keras_model(model_path, custom_objects=None):
         return None
 
 def load_pretrained_model(model_id, model_path):
+    
     if model_id == 'unet': # U-Net
+        print(f"\t[INFO] Loading ... 'UNET' model")
         return load_keras_model(f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
     
-    elif model_id == 'attention_unet': 
+    elif model_id == 'attention_unet':
+        print(f"\t[INFO] Loading ... 'ATTENTION-UNET' model")
         return load_keras_model(f"{model_path}/p08a_q01_u02att_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
     elif model_id == 'recurrent_unet':
+        print(f"\t[INFO] Loading ... 'RECURRENT-UNET' model")
         return load_keras_model(f"{model_path}/p08a_q01_u03rec_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
     
     elif model_id == 'residual_unet':
+        print(f"\t[INFO] Loading ... 'RESIDUAL-UNET' model")
         return load_keras_model(f"{model_path}/p08a_q01_u04res_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
     
-    elif model_id == 'recurrent_residual_attention_unet': 
+    elif model_id == 'recurrent_residual_attention_unet':
+        print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model")
         return load_keras_model(f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
     elif model_id == 'srcnn':
+        print(f"\t[INFO] Loading ... 'SRCNN' model")
         return load_keras_model(f"{model_path}/p08a_q01_b01src_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
     elif model_id == 'fsrcnn':
+        print(f"\t[INFO] Loading ... 'FSRCNN' model")
         return load_keras_model(f"{model_path}/p08a_q01_b02fsr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
     elif model_id == 'edrn':
+        print(f"\t[INFO] Loading ... 'EDRN' model")
         return load_keras_model(f"{model_path}/p08a_q01_b03edr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
     elif model_id == 'srdrn':
+        print(f"\t[INFO] Loading ... 'SRDRN' model")
         return load_keras_model(f"{model_path}/p08a_q01_b04srd_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
     else:
         raise ValueError(
