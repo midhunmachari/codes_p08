@@ -326,7 +326,7 @@ def load_pretrained_model_path(model_id, model_path):
         return model_path
     
     elif model_id == 'recurrent_residual_attention_unet':
-        model_path = f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
+        model_path = f"{model_path}/p08a_q01_u05rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras"
         print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model from {model_path}")
         return model_path
 
