@@ -281,7 +281,7 @@ def load_pretrained_model(model_id, model_path):
     
     elif model_id == 'recurrent_residual_attention_unet':
         print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model")
-        return load_keras_model(f"{model_path}/p08a_q01_u04rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
+        return load_keras_model(f"{model_path}/p08a_q01_u05rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras")
 
     elif model_id == 'srcnn':
         print(f"\t[INFO] Loading ... 'SRCNN' model")
