@@ -151,7 +151,7 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
                 loss_lr_init=1e-6,
                 log_tensorboard = True,
                 enable_function = True,
-                optimizer_mode = 'separate' # 'single'
+                optimizer_mode = 'single' # 'separate'
                 )
             
             mt.train(

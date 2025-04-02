@@ -54,9 +54,9 @@ losses_dict = {
             reg_loss='WMAE', 
             constraint='max', 
             alpha_init=1.0, 
-            beta_init=1e-4, 
+            beta_init=1e-6, 
             alpha_train=False, 
-            beta_train=True,
+            beta_train=False,
             climatology=None,
             )
     # 'wmae': weighted_mae,
