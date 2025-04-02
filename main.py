@@ -1,7 +1,7 @@
 import gc
 import tensorflow as tf
 import argparse
-from ai4klima.tensorflow.losses import weighted_mae, MeanAbsoluteError
+from ai4klima.tensorflow.losses import weighted_mae, MeanAbsoluteError, ConstraintLossAuto
 from runexp import RunExperiment
 
 # Clear the session to release memory
@@ -50,14 +50,23 @@ models_dict = {
 models_dict = dict(reversed(models_dict.items()))
 
 losses_dict = {
-    'wmae': weighted_mae,
+    'clos': ConstraintLossAuto(
+            reg_loss='WMAE', 
+            constraint='max', 
+            alpha_init=1.0, 
+            beta_init=1e-4, 
+            alpha_train=False, 
+            beta_train=True,
+            climatology=None,
+            )
+    # 'wmae': weighted_mae,
     # 'omae' : MeanAbsoluteError()
     }
 
 lr_dict = {
     # 'r1e4' : 1e-4,
-    # 'r2e4' : 2e-4,
-    'r7e4' : 7e-4,
+    'r2e4' : 2e-4,
+    # 'r7e4' : 7e-4,
     }
 
 bs_dict = {

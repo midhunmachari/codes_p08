@@ -5,7 +5,7 @@ Experiment description: P08A_DeepDown_CMIP6
 """
 import itertools
 
-from ai4klima.tensorflow.train import CustomModelTrainer
+from ai4klima.tensorflow.train import CustomLossTrainer
 from ai4klima.tensorflow.utils import load_inputs_target_pairs, take_paired_data_subset_by_bounds
 
 from utils import configure_model, load_pretrained_model
@@ -142,14 +142,16 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
                                         
             # print(gen_arch.summary())
 
-            mt = CustomModelTrainer(
+            mt = CustomLossTrainer(
                 prefix = exp_prefix, 
                 save_path = SAVE_PATH,
                 generator = gen_arch,
                 loss_fn = loss_fn,
                 lr_init = gen_lr,
+                loss_lr_init=1e-6,
                 log_tensorboard = True,
                 enable_function = True,
+                optimizer_mode = 'separate' # 'single'
                 )
             
             mt.train(
@@ -157,13 +159,13 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
                 val_data = (X_val, S_val, y_val), 
                 epochs = epochs,  # Edit here
                 batch_size = bs, 
-                monitor = "val_loss",
+                monitor = "val_mean_absolute_error",
                 mode = "min",
                 min_lr = 1e-10,
                 save_ckpt = True,
                 ckpt_interval = 1,
                 save_ckpt_best = True,
-                reducelr_on_plateau = reducelr_on_plateau,
+                reducelr_on_plateau = True,
                 reducelr_factor = 0.1,
                 reducelr_patience = 12,
                 early_stopping = True,
