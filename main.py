@@ -36,14 +36,14 @@ else:
 ########################################## EXECUTION SNIPPET BELOW #########################################
 
 models_dict = {
-    'b01src': 'srcnn',
-    'b02fsr': 'fsrcnn',
-    'b03edr': 'edrn',
-    'b04srd': 'srdrn',
+    # 'b01src': 'srcnn',
+    # 'b02fsr': 'fsrcnn',
+    # 'b03edr': 'edrn',
+    # 'b04srd': 'srdrn',
     'u02att': 'attention_unet',
-    'u03rec': 'recurrent_unet',
-    'u04res': 'residual_unet', 
-    'u05rra': 'recurrent_residual_attention_unet',
+    # 'u03rec': 'recurrent_unet',
+    # 'u04res': 'residual_unet', 
+    # 'u05rra': 'recurrent_residual_attention_unet',
     'u01cnn': 'unet',
     }
 
