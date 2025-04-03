@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --gres=gpu:A100-SXM4:1
-#SBATCH --time=48:00:00
+#SBATCH --time=18:00:00
 
 # Display help message if "--help" is passed
 if [[ "$1" == "--help" ]]; then
@@ -36,7 +36,7 @@ fi
 SCRIPTNAME='main.py'
 # Assign arguments with default values
 PREFIX="${1:-p08a_q05}"   # Default: p08
-EPOCHS="${2:-201}"   # Default: 101
+EPOCHS="${2:-101}"   # Default: 101
 
 ####################### EDIT ABOVE #######################
 
