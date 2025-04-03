@@ -1,3 +1,5 @@
+
+import tensorflow as tf
 from ai4klima.tensorflow.models import MegaUNet, SRCNN, FSRCNN, EDRN, SRDRN
 from tensorflow.keras.models import load_model
 
@@ -240,9 +242,7 @@ def configure_model(
 #     m.save(f"/home/midhunm/f{model_name}_noisy.keras")
 
 #%%
-
-
-
+    
 def load_keras_model(model_path, custom_objects=None):
     """
     Load a Keras model from the specified path with optional custom objects.
@@ -355,4 +355,3 @@ def load_pretrained_model_path(model_id, model_path):
         raise ValueError(
             f"Invalid model_id: {model_id}"
         )
-    
