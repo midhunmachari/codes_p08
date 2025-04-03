@@ -424,7 +424,7 @@ def residual_block(x, filters=[128, 64], kernel_size=3):
     return x
 
 
-def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, unfreeze_layers=None, num_res_blocks=1, rb_kernel_size=3, last_kernel_size=1):
+def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=1, rb_kernel_size=3, last_kernel_size=1):
     """
     Load a Keras model, unfreeze specified layers, add a convolutional block on top, and prepare for fine-tuning.
 
@@ -443,20 +443,10 @@ def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, un
         # Load the base model
         base_model = load_model(model_path, custom_objects=custom_objects)
         print(f"\t[INFO] Base Model loaded successfully from {model_path}")
-
-        # Unfreeze layers for fine-tuning
-        if unfreeze_layers:
-            if isinstance(unfreeze_layers, int):
-                for layer in base_model.layers[-unfreeze_layers:]:
-                    layer.trainable = True
-            elif isinstance(unfreeze_layers, list):
-                for layer in base_model.layers:
-                    if layer.name in unfreeze_layers:
-                        layer.trainable = True
-            else:
-                raise ValueError("unfreeze_layers must be an int (number of layers) or a list of layer names.")
-            
-            print(f"\t[INFO] Unfroze {unfreeze_layers} layers for fine-tuning.")
+        
+        # Freeze the base model (make it non-trainable)
+        base_model.trainable = False
+        print("\t[INFO] Base Model is now frozen (non-trainable).")
 
         # Get base model's output as input for the new layers
         x = base_model.output
