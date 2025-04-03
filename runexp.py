@@ -8,7 +8,7 @@ import itertools
 from ai4klima.tensorflow.train import CustomLossTrainer
 from ai4klima.tensorflow.utils import load_inputs_target_pairs, take_paired_data_subset_by_bounds
 
-from utils import configure_model, load_pretrained_model
+from utils import load_pretrained_model_for_finetune
 
 ######### EDIT BELOW #########
 activation = 'prelu'
@@ -138,7 +138,7 @@ def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, m
             """
             Train UNET variants -> Deterministic Modelling
             """
-            gen_arch = load_pretrained_model(model_name, MODEL_PATH)
+            gen_arch = load_pretrained_model_for_finetune(model_name, MODEL_PATH)
                                         
             # print(gen_arch.summary())
 

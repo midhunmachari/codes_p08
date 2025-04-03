@@ -444,8 +444,10 @@ def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, nu
         base_model = load_model(model_path, custom_objects=custom_objects)
         print(f"\t[INFO] Base Model loaded successfully from {model_path}")
         
-        # Freeze the base model (make it non-trainable)
+        # Freeze the entire base model
         base_model.trainable = False
+        for layer in base_model.layers:
+            layer.trainable = False
         print("\t[INFO] Base Model is now frozen (non-trainable).")
 
         # Get base model's output as input for the new layers
@@ -457,7 +459,7 @@ def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, nu
 
         # Define the new model
         model = tf.keras.models.Model(inputs=base_model.input, outputs=x)
-        print("\t[INFO] Model is ready for fine-tuning with {num_res_blocks} residual block.")
+        print(f"\t[INFO] Model is ready for fine-tuning with {num_res_blocks} residual block.")
 
         return model
 
@@ -465,7 +467,7 @@ def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, nu
         print(f"Failed to load and prepare model from {model_path}: {e}")
         return None
     
-def load_pretrained_model(model_id, model_path):
+def load_pretrained_model_for_finetune(model_id, model_path):
 
     if model_id == 'unet': # U-Net
         print(f"\t[INFO] Loading ... 'UNET' model")
