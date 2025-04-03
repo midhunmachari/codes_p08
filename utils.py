@@ -424,7 +424,7 @@ def residual_block(x, filters=[128, 64], kernel_size=3):
     return x
 
 
-def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=1, rb_kernel_size=3, last_kernel_size=1):
+def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=3, rb_kernel_size=3, last_kernel_size=1):
     """
     Load a Keras model, unfreeze specified layers, add a convolutional block on top, and prepare for fine-tuning.
 
@@ -451,10 +451,12 @@ def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, nu
         print("\t[INFO] Base Model is now frozen (non-trainable).")
 
         # Get base model's output as input for the new layers
-        x = base_model.output
+        x0 = x = base_model.output
 
         for _ in range(num_res_blocks):
             x = residual_block(x, filters=[128, 64], kernel_size=rb_kernel_size)
+        if num_res_blocks>1:
+            x = tf.keras.layers.Add()([x, x0])  
         x = tf.keras.layers.Conv2D(filters = 1, kernel_size = (last_kernel_size, last_kernel_size), padding="same")(x)
 
         # Define the new model
