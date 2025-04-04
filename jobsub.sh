@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --gres=gpu:A100-SXM4:1
-#SBATCH --time=18:00:00
+#SBATCH --time=12:00:00
 
 # Display help message if "--help" is passed
 if [[ "$1" == "--help" ]]; then

@@ -426,7 +426,7 @@ def residual_block(x, filters=[128, 64], kernel_size=3, bn=False):
     return x
 
 
-def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=2, rb_kernel_size=3, last_kernel_size=1):
+def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=1, rb_kernel_size=3, last_kernel_size=1):
     """
     Load a Keras model, unfreeze specified layers, add a convolutional block on top, and prepare for fine-tuning.
 
