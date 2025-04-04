@@ -355,7 +355,7 @@ def load_pretrained_model_path(model_id, model_path):
             f"Invalid model_id: {model_id}"
         )
     
-def load_keras_model_finetuner(model_path, custom_objects=None, unfreeze_layers=None, lr=1e-4):
+def load_keras_model_finetuner(model_path, custom_objects=None, unfreeze_layers=None):
     """
     Load a Keras model and prepare it for fine-tuning.
 
@@ -392,6 +392,57 @@ def load_keras_model_finetuner(model_path, custom_objects=None, unfreeze_layers=
     except Exception as e:
         print(f"Failed to load and prepare model from {model_path}: {e}")
         return None
+
+def load_pretrained_model_for_finetune_unfreeze_layers(model_id, model_path, unfreeze_layers=None):
+
+    if model_id == 'unet': # U-Net
+        print(f"\t[INFO] Loading ... 'UNET' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_u01cnn_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+    
+    elif model_id == 'attention_unet':
+        print(f"\t[INFO] Loading ... 'ATTENTION-UNET' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_u02att_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+
+    elif model_id == 'recurrent_unet':
+        print(f"\t[INFO] Loading ... 'RECURRENT-UNET' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_u03rec_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+    
+    elif model_id == 'residual_unet':
+        print(f"\t[INFO] Loading ... 'RESIDUAL-UNET' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_u04res_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+    
+    elif model_id == 'recurrent_residual_attention_unet':
+        print(f"\t[INFO] Loading ... 'RECURRENT-RESIDUAL-UNET' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_u05rra_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+
+    elif model_id == 'srcnn':
+        print(f"\t[INFO] Loading ... 'SRCNN' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_b01src_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+
+    elif model_id == 'fsrcnn':
+        print(f"\t[INFO] Loading ... 'FSRCNN' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_b02fsr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+
+    elif model_id == 'edrn':
+        print(f"\t[INFO] Loading ... 'EDRN' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_b03edr_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+
+    elif model_id == 'srdrn':
+        print(f"\t[INFO] Loading ... 'SRDRN' model")
+        return load_keras_model_finetuner(f"{model_path}/p08a_q01_b04srd_wmae_era5_mswx_r7e4_b08_ckpt_best_gen.keras",
+                                                        custom_objects={'weighted_mae': weighted_mae}, unfreeze_layers=unfreeze_layers)
+    else:
+        raise ValueError(
+            f"Invalid model_id: {model_id}"
+        )
 
 
 def residual_block(x, filters=[128, 64], kernel_size=3, bn=False):
