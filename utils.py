@@ -394,7 +394,7 @@ def load_keras_model_finetuner(model_path, custom_objects=None, unfreeze_layers=
         return None
 
 
-def residual_block(x, filters=[128, 64], kernel_size=3):
+def residual_block(x, filters=[128, 64], kernel_size=3, bn=False):
     """
     Residual block with Conv2D, Batch Normalization, and PReLU activations.
 
@@ -410,12 +410,14 @@ def residual_block(x, filters=[128, 64], kernel_size=3):
 
     # First Conv2D → BatchNorm → PReLU
     x = tf.keras.layers.Conv2D(filters=filters[0], kernel_size=(kernel_size, kernel_size), padding="same")(x)
-    x = tf.keras.layers.BatchNormalization()(x)  # Batch Norm for stability
+    if bn:
+        x = tf.keras.layers.BatchNormalization()(x)  # Batch Norm for stability
     x = tf.keras.layers.PReLU(shared_axes=[1, 2])(x)
 
     # Second Conv2D → BatchNorm → PReLU
     x = tf.keras.layers.Conv2D(filters=filters[1], kernel_size=(kernel_size, kernel_size), padding="same")(x)
-    x = tf.keras.layers.BatchNormalization()(x)  # Batch Norm for stability
+    if bn:
+        x = tf.keras.layers.BatchNormalization()(x)  # Batch Norm for stability
     x = tf.keras.layers.PReLU(shared_axes=[1, 2])(x)
 
     # Residual connection (skip connection)
@@ -424,7 +426,7 @@ def residual_block(x, filters=[128, 64], kernel_size=3):
     return x
 
 
-def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=1, rb_kernel_size=3, last_kernel_size=1):
+def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, num_res_blocks=2, rb_kernel_size=3, last_kernel_size=1):
     """
     Load a Keras model, unfreeze specified layers, add a convolutional block on top, and prepare for fine-tuning.
 
@@ -454,8 +456,8 @@ def load_keras_model_finetuner_with_newlayer(model_path, custom_objects=None, nu
         x0 = x = base_model.output
 
         for _ in range(num_res_blocks):
-            x = residual_block(x, filters=[128, 64], kernel_size=rb_kernel_size)
-        if num_res_blocks>1:
+            x = residual_block(x, filters=[128, 128], kernel_size=rb_kernel_size, bn=False)
+        if num_res_blocks > 1:
             x = tf.keras.layers.Add()([x, x0])  
         x = tf.keras.layers.Conv2D(filters = 1, kernel_size = (last_kernel_size, last_kernel_size), padding="same")(x)
 

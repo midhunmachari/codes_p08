@@ -50,22 +50,22 @@ models_dict = {
 models_dict = dict(reversed(models_dict.items()))
 
 losses_dict = {
-    'clos': ConstraintLossAuto(
-            reg_loss='WMAE', 
-            constraint='sum', 
-            alpha_init=1.0, 
-            beta_init=1e-6, 
-            alpha_train=False, 
-            beta_train=False,
-            climatology=None,
-            )
-    # 'wmae': weighted_mae,
+    # 'clos': ConstraintLossAuto(
+    #         reg_loss='WMAE', 
+    #         constraint='sum', 
+    #         alpha_init=1.0, 
+    #         beta_init=1e-6, 
+    #         alpha_train=False, 
+    #         beta_train=False,
+    #         climatology=None,
+    #         )
+    'wmae': weighted_mae,
     # 'omae' : MeanAbsoluteError()
     }
 
 lr_dict = {
-    # 'r1e4' : 1e-4,
-    'r2e4' : 2e-4,
+    'r1e4' : 1e-4,
+    # 'r2e4' : 2e-4,
     # 'r7e4' : 7e-4,
     }
 

@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=p8q5.2e4
-#SBATCH --error=p8q5.mpih.%J.err
-#SBATCH --output=p8q5.mpih.%J.out
+#SBATCH --job-name=p8q6
+#SBATCH --error=p8q6.mpih.%J.err
+#SBATCH --output=p8q6.mpih.%J.out
 #SBATCH --partition=testp
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
@@ -35,7 +35,7 @@ fi
 
 SCRIPTNAME='main.py'
 # Assign arguments with default values
-PREFIX="${1:-p08a_q05}"   # Default: p08
+PREFIX="${1:-p08a_q06}"   # Default: p08
 EPOCHS="${2:-101}"   # Default: 101
 
 ####################### EDIT ABOVE #######################
