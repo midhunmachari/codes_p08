@@ -15,7 +15,6 @@ activation = 'prelu'
 ups_method = 'convtranspose'
 add_input_noise = False
 input_noise_stddev = 0.1
-reducelr_on_plateau = True
 ######### EDIT ABOVE #########
 
 def RunExperiment(prefix, data_path, save_path, model_path, refd_path, epochs, models_dict, losses_dict, lr_dict, bs_dict):
