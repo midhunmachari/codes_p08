@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=p8q6
-#SBATCH --error=p8q6.mpih.%J.err
-#SBATCH --output=p8q6.mpih.%J.out
+#SBATCH --job-name=p8q7
+#SBATCH --error=p8q7.mpih.%J.err
+#SBATCH --output=p8q7.mpih.%J.out
 #SBATCH --partition=testp
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
 #SBATCH --gres=gpu:A100-SXM4:1
-#SBATCH --time=12:00:00
+#SBATCH --time=72:00:00
 
 # Display help message if "--help" is passed
 if [[ "$1" == "--help" ]]; then
@@ -35,7 +35,7 @@ fi
 
 SCRIPTNAME='main.py'
 # Assign arguments with default values
-PREFIX="${1:-p08a_q06}"   # Default: p08
+PREFIX="${1:-p08a_q07}"   # Default: p08
 EPOCHS="${2:-101}"   # Default: 101
 
 ####################### EDIT ABOVE #######################
