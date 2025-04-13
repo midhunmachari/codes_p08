@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=p8q7
+#SBATCH --job-name=p8q7.mpih
 #SBATCH --error=p8q7.mpih.%J.err
 #SBATCH --output=p8q7.mpih.%J.out
 #SBATCH --partition=testp
