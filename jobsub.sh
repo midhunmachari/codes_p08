@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=p8q1
+#SBATCH --job-name=p8q1.gl50
 #SBATCH --error=p8q1.%J.err
 #SBATCH --output=p8q1.%J.out
 #SBATCH --partition=testp
@@ -35,7 +35,7 @@ fi
 
 SCRIPTNAME='main.py'
 # Assign arguments with default values
-PREFIX="${1:-p08a_q01}"   # Default: p08
+PREFIX="${1:-p08b_q01}"   # Default: p08
 EPOCHS="${2:-201}"   # Default: 101
 
 ####################### EDIT ABOVE #######################
