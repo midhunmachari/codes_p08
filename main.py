@@ -36,20 +36,20 @@ else:
 ########################################## EXECUTION SNIPPET BELOW #########################################
 
 models_dict = {
-    'b01src': 'srcnn',
-    'b02fsr': 'fsrcnn',
-    'b03edr': 'edrn',
-    'b04srd': 'srdrn',
     'u01cnn': 'unet',
     'u02att': 'attention_unet',
     'u03rec': 'recurrent_unet',
     'u04res': 'residual_unet', 
     'u05rra': 'recurrent_residual_attention_unet',
+    'b01src': 'srcnn',
+    'b02fsr': 'fsrcnn',
+    'b03edr': 'edrn',
+    'b04srd': 'srdrn',
     }
 
 losses_dict = {
     'wmae': weighted_mae,
-    # 'omae' : MeanAbsoluteError()
+    'omae' : MeanAbsoluteError()
     }
 
 lr_dict = {
