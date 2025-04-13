@@ -74,7 +74,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     #### EDIT BELOW ####
-    REFD_PATH = "/nlsasfs/home/precipitation/midhunm/AI4KLIM/DATASET/DATA_IND32M/IND32M_010_GRID.nc"
+    REFD_PATH = "/nlsasfs/home/precipitation/midhunm/AI4KLIM/DATASET/DATA_GLOBAL/GLOBAL_050_GRID.nc"
     DATA_PATH = "/nlsasfs/home/precipitation/midhunm/AI4KLIM/DATASET/DATA_GLOBAL"
     SAVE_PATH = f"{args.pwd}/.."
     
