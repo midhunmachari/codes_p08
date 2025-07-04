@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=p8q1.gl50
-#SBATCH --error=p8q1.%J.err
-#SBATCH --output=p8q1.%J.out
+#SBATCH --job-name=p8q10
+#SBATCH --error=p8q10.%J.err
+#SBATCH --output=p8q10.%J.out
 #SBATCH --partition=testp
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
@@ -18,8 +18,6 @@ if [[ "$1" == "--help" ]]; then
     exit 0
 fi
 
-# P08.Q1.B14
-
 # Detect working directory and normalize paths
 PWD=$(pwd)
 if [[ "$PWD" == /nlsasfs/* ]]; then
@@ -35,7 +33,7 @@ fi
 
 SCRIPTNAME='main.py'
 # Assign arguments with default values
-PREFIX="${1:-p08b_q01}"   # Default: p08
+PREFIX="${1:-p08a_q10}"   # Default: p08
 EPOCHS="${2:-201}"   # Default: 101
 
 ####################### EDIT ABOVE #######################
