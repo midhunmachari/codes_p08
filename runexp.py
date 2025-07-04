@@ -28,7 +28,7 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
     print(f"INFO: REFD_PATH: {REFD_PATH}")
 
     inputs_dict = {
-        'era5': {
+        'e5tp': {
             'prec' : f'{DATA_PATH}/IND32M_ERA5_100_PREC_DAY_1979_2023_RCON_LOG.npy',
             } 
         }
