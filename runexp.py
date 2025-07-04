@@ -27,35 +27,40 @@ def RunExperiment(prefix, data_path, save_path, refd_path, epochs, models_dict, 
     print(f"INFO: SAVE_PATH: {SAVE_PATH}")
     print(f"INFO: REFD_PATH: {REFD_PATH}")
 
+    # inputs_dict = {
+    #     'era5': {
+    #         'prec' : f'{DATA_PATH}/GLOBAL_200_ERA5_PREC_DAY_1979_2023_RCON_LOG.npy',
+
+    #         'z850' : f'{DATA_PATH}/GLOBAL_200_ERA5_Z850_DAY_1979_2023_RBIL_STD.npy',
+    #         'z700' : f'{DATA_PATH}/GLOBAL_200_ERA5_Z700_DAY_1979_2023_RBIL_STD.npy',
+    #         'z500' : f'{DATA_PATH}/GLOBAL_200_ERA5_Z500_DAY_1979_2023_RBIL_STD.npy',
+
+    #         'q850' : f'{DATA_PATH}/GLOBAL_200_ERA5_Q850_DAY_1979_2023_RBIL_STD.npy',
+    #         'q700' : f'{DATA_PATH}/GLOBAL_200_ERA5_Q700_DAY_1979_2023_RBIL_STD.npy',
+    #         'q500' : f'{DATA_PATH}/GLOBAL_200_ERA5_Q500_DAY_1979_2023_RBIL_STD.npy',
+
+    #         't850' : f'{DATA_PATH}/GLOBAL_200_ERA5_T850_DAY_1979_2023_RBIL_STD.npy',
+    #         't700' : f'{DATA_PATH}/GLOBAL_200_ERA5_T700_DAY_1979_2023_RBIL_STD.npy',
+    #         't500' : f'{DATA_PATH}/GLOBAL_200_ERA5_T500_DAY_1979_2023_RBIL_STD.npy',
+
+    #         'u850' : f'{DATA_PATH}/GLOBAL_200_ERA5_U850_DAY_1979_2023_RBIL_STD.npy',
+    #         'u700' : f'{DATA_PATH}/GLOBAL_200_ERA5_U700_DAY_1979_2023_RBIL_STD.npy',
+    #         'u500' : f'{DATA_PATH}/GLOBAL_200_ERA5_U500_DAY_1979_2023_RBIL_STD.npy',
+
+    #         'v850' : f'{DATA_PATH}/GLOBAL_200_ERA5_V850_DAY_1979_2023_RBIL_STD.npy',
+    #         'v700' : f'{DATA_PATH}/GLOBAL_200_ERA5_V700_DAY_1979_2023_RBIL_STD.npy',
+    #         'v500' : f'{DATA_PATH}/GLOBAL_200_ERA5_V500_DAY_1979_2023_RBIL_STD.npy',
+
+    #         'msl'  : f'{DATA_PATH}/GLOBAL_200_ERA5_MSL_DAY_1979_2023_RBIL_STD.npy',
+    #         't2m'  : f'{DATA_PATH}/GLOBAL_200_ERA5_T2M_DAY_1979_2023_RBIL_STD.npy',
+    #         } 
+    #     }
+
     inputs_dict = {
-        'era5': {
+        'e5tp': {
             'prec' : f'{DATA_PATH}/GLOBAL_200_ERA5_PREC_DAY_1979_2023_RCON_LOG.npy',
-
-            'z850' : f'{DATA_PATH}/GLOBAL_200_ERA5_Z850_DAY_1979_2023_RBIL_STD.npy',
-            'z700' : f'{DATA_PATH}/GLOBAL_200_ERA5_Z700_DAY_1979_2023_RBIL_STD.npy',
-            'z500' : f'{DATA_PATH}/GLOBAL_200_ERA5_Z500_DAY_1979_2023_RBIL_STD.npy',
-
-            'q850' : f'{DATA_PATH}/GLOBAL_200_ERA5_Q850_DAY_1979_2023_RBIL_STD.npy',
-            'q700' : f'{DATA_PATH}/GLOBAL_200_ERA5_Q700_DAY_1979_2023_RBIL_STD.npy',
-            'q500' : f'{DATA_PATH}/GLOBAL_200_ERA5_Q500_DAY_1979_2023_RBIL_STD.npy',
-
-            't850' : f'{DATA_PATH}/GLOBAL_200_ERA5_T850_DAY_1979_2023_RBIL_STD.npy',
-            't700' : f'{DATA_PATH}/GLOBAL_200_ERA5_T700_DAY_1979_2023_RBIL_STD.npy',
-            't500' : f'{DATA_PATH}/GLOBAL_200_ERA5_T500_DAY_1979_2023_RBIL_STD.npy',
-
-            'u850' : f'{DATA_PATH}/GLOBAL_200_ERA5_U850_DAY_1979_2023_RBIL_STD.npy',
-            'u700' : f'{DATA_PATH}/GLOBAL_200_ERA5_U700_DAY_1979_2023_RBIL_STD.npy',
-            'u500' : f'{DATA_PATH}/GLOBAL_200_ERA5_U500_DAY_1979_2023_RBIL_STD.npy',
-
-            'v850' : f'{DATA_PATH}/GLOBAL_200_ERA5_V850_DAY_1979_2023_RBIL_STD.npy',
-            'v700' : f'{DATA_PATH}/GLOBAL_200_ERA5_V700_DAY_1979_2023_RBIL_STD.npy',
-            'v500' : f'{DATA_PATH}/GLOBAL_200_ERA5_V500_DAY_1979_2023_RBIL_STD.npy',
-
-            'msl'  : f'{DATA_PATH}/GLOBAL_200_ERA5_MSL_DAY_1979_2023_RBIL_STD.npy',
-            't2m'  : f'{DATA_PATH}/GLOBAL_200_ERA5_T2M_DAY_1979_2023_RBIL_STD.npy',
             } 
         }
-
     
     static_dict = {
         'elev': {

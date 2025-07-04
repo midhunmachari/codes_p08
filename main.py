@@ -49,7 +49,7 @@ models_dict = {
 
 losses_dict = {
     'wmae': weighted_mae,
-    'omae' : MeanAbsoluteError()
+    # 'omae' : MeanAbsoluteError()
     }
 
 lr_dict = {
